@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/Icon.PNG" alt="Sploom Terminal Logo" width="400">
+  <img src="assets/Icon.png" alt="Sploom Terminal Logo" width="400">
 </div>
 
 # 🚀 Sploom Terminal: PSP Trading Client
@@ -12,7 +12,7 @@ A quantitative trading and portfolio monitoring client built for the Sony PlaySt
 
 The PSP has a strict 24MB RAM limit, which makes parsing large JSON payloads directly on the device unstable. To manage this, the system delegates the heavy lifting:
 
-`\[PSP C Client] <--- HTTP/ASCII ---> \[Python Flask Server] <---> \[Alpaca / Finnhub / NewsAPI]`
+`\\\[PSP C Client] <--- HTTP/ASCII ---> \\\[Python Flask Server] <---> \\\[Alpaca / Finnhub / NewsAPI]`
 
 * **Python Backend:** Hosted externally (e.g., AWS or PythonAnywhere). It fetches market data, calculates indicators, formats the text, and sends lightweight ASCII strings to the console.
 * **C Frontend:** Handles the network requests, parses the ASCII data, processes D-pad inputs, and renders the text UI.
@@ -20,13 +20,13 @@ The PSP has a strict 24MB RAM limit, which makes parsing large JSON payloads dir
 ## ⚡ 2. Core Features
 
 * **📈 Order Execution:** Users can input quantities via the D-pad and submit paper trades through the Alpaca API. The active orders blotter updates dynamically.
-* **📰 News \& Sentiment:** The backend fetches articles from NewsAPI. Since the free tier truncates descriptions, the server uses a regex text-slicer to cleanly format the last readable sentence. VADER sentiment analysis is then applied to tag headlines as Bullish `\[+]`, Bearish `\[-]`, or Neutral `\[=]`.
+* **📰 News \& Sentiment:** The backend fetches articles from NewsAPI. Since the free tier truncates descriptions, the server uses a regex text-slicer to cleanly format the last readable sentence. VADER sentiment analysis is then applied to tag headlines as Bullish `\\\[+]`, Bearish `\\\[-]`, or Neutral `\\\[=]`.
 * **📟 Terminal UI:** Built with `pspDebugScreen` to display account holdings and quantitative overlays (like Simple Moving Averages and Bollinger Bands) within a rigid 68-character width constraint.
 
 ## 🛠️ 3. Technical Notes \& Challenges
 
 * **💾 Memory Management:** To prevent crashes from buffer overflows, string arrays in the C client are strictly capped (e.g., 512 bytes for news entries).
-* **🌐 Network Parsing:** HTTP streams include carriage returns (`\\r\\n`) that break text rendering on the PSP. The C parser uses a custom `strtok\_r` implementation to clean these before displaying data.
+* **🌐 Network Parsing:** HTTP streams include carriage returns (`\\\\r\\\\n`) that break text rendering on the PSP. The C parser uses a custom `strtok\\\_r` implementation to clean these before displaying data.
 * **🔗 Hardcoded Backend IP:** The C frontend currently relies on a hardcoded IP address/URL to connect to the Python backend. If you deploy this yourself, you must update the endpoint in your C source code before compiling.
 * **🎨 Graphical Limitations:** `pspDebugScreen` does not support transparency. The UI uses a strictly dark, text-based layout to ensure high contrast and avoid rendering glitches.
 
@@ -72,20 +72,20 @@ Your `requirements.txt` file must include the following packages:
 
 ### Backend Setup
 
-1. Navigate to the `/middleware\_server` directory and run `pip install -r requirements.txt`.
+1. Navigate to the `/middleware\\\_server` directory and run `pip install -r requirements.txt`.
 2. Open `app.py` and replace the placeholder API keys with your active credentials:
 
-   * `ALPACA\_API\_KEY`
-   * `ALPACA\_SECRET\_KEY`
-   * `FINNHUB\_KEY`
-   * `NEWSAPI\_KEY`
+   * `ALPACA\\\_API\\\_KEY`
+   * `ALPACA\\\_SECRET\\\_KEY`
+   * `FINNHUB\\\_KEY`
+   * `NEWSAPI\\\_KEY`
 3. Run the Flask server on your hosting platform of choice.
 
 ### Frontend Compilation \& Installation
 
 1. Ensure the `pspsdk` repository is cloned, installed, and added to your system `$PATH`.
-2. Navigate to the `/psp\_client` directory on your computer.
-3. Open `main.c` and update the hardcoded `ip\_bytes` (or `Host` header) to point to your live hosted Python backend.
+2. Navigate to the `/psp\\\_client` directory on your computer.
+3. Open `main.c` and update the hardcoded `ip\\\_bytes` (or `Host` header) to point to your live hosted Python backend.
 4. Run `make clean` followed by `make` in your terminal to generate the `EBOOT.PBP` file.
 5. Connect your PSP to your computer via USB.
 6. Navigate to the `PSP/GAME/` directory on your memory stick.
