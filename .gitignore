@@ -1,0 +1,16 @@
+# PSP Compiled Files
+*.o
+*.elf
+*.pbp
+EBOOT.PBP
+
+# Python Cache & Environments
+__pycache__/
+*.pyc
+.env
+venv/
+env/
+
+# OS Generated Files
+.DS_Store
+Thumbs.db

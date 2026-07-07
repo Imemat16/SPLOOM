@@ -1,0 +1,5 @@
+Flask==3.0.0
+requests==2.31.0
+vaderSentiment==3.3.2
+alpaca-trade-api==3.1.1
+pandas==2.1.4
